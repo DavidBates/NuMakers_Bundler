@@ -13,11 +13,28 @@ chmod +x ./create_bundles.sh
 
 This will create bundle files from each folder with the naming pattern `FolderName+.bbsflmt`.
 
+## Downloading Pre-built Bundles
+
+Pre-built `.bbsflmt` bundle files are automatically generated and attached to each [GitHub release](../../releases). Simply download the bundle files from the latest release and import them into Bambu Studio or Bambu Handy.
+
 ## Installing Profiles
 
-1. Run the bundle creation script to generate `.bbsflmt` files
-2. Open Bambu Studio or use Bambu Handy app
-3. Import the generated `.bbsflmt` bundle files
+### Option 1: Download from Releases (Recommended)
+
+1. Visit the [Releases page](../../releases)
+2. Download the `.bbsflmt` bundle files from the latest release
+3. Open Bambu Studio or Bambu Handy app
+4. Import the downloaded bundle files
+
+### Option 2: Build from Source
+
+1. Clone this repository
+2. Run the bundle creation script to generate `.bbsflmt` files:
+   ```bash
+   chmod +x ./create_bundles.sh
+   ./create_bundles.sh
+   ```
+3. Import the generated bundle files into Bambu Studio or Bambu Handy
 
 ## Contributing New Profiles
 
