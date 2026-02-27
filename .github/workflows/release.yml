@@ -22,12 +22,6 @@ jobs:
         run: ./create_bundles.sh
       
       - name: Upload bundle files to release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          for file in ./*.bbsflmt; do
-            if [ -f "$file" ]; then
-              echo "Uploading $file..."
-              gh release upload ${{ github.event.release.tag_name }} "$file" --clobber
-            fi
-          done
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./*.bbsflmt
