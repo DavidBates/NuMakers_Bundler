@@ -1,6 +1,6 @@
 # Numakers Filament Profiles for Bambu Lab
 
-This repository contains filament profiles for Numakers PLA and PLA Silk filaments, optimized for various Bambu Lab printers.
+This repository contains filament profiles for Numakers filaments, optimized for various Bambu Lab printers.
 
 ## Creating Bundles
 
