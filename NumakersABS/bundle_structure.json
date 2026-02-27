@@ -1,0 +1,17 @@
+{
+    "bundle_id": "2979884506_Numakers ABS_1771909775",
+    "bundle_type": "filament config bundle",
+    "filament_name": "Numakers ABS",
+    "filament_vendor": [
+        {
+            "filament_path": [
+                "Numakers/Numakers ABS ABS @Bambu Lab A1 0.4 nozzle.json",
+                "Numakers/Numakers ABS ABS @Bambu Lab P1P 0.4 nozzle.json",
+                "Numakers/Numakers ABS ABS @Bambu Lab P1S 0.4 nozzle.json",
+                "Numakers/Numakers ABS ABS @Bambu Lab X1 Carbon 0.4 nozzle.json"
+            ],
+            "vendor": "Numakers"
+        }
+    ],
+    "version": "02.05.00.56"
+}

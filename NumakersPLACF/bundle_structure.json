@@ -1,0 +1,17 @@
+{
+    "bundle_id": "2979884504_Numakers PLA-CF CF_1771909772",
+    "bundle_type": "filament config bundle",
+    "filament_name": "Numakers PLA-CF CF",
+    "filament_vendor": [
+        {
+            "filament_path": [
+                "Numakers/Numakers PLA-CF CF @Bambu Lab A1 0.4 nozzle.json",
+                "Numakers/Numakers PLA-CF CF @Bambu Lab A1 mini 0.4 nozzle.json",
+                "Numakers/Numakers PLA-CF CF @Bambu Lab P1P 0.4 nozzle.json",
+                "Numakers/Numakers PLA-CF CF @Bambu Lab X1 Carbon 0.4 nozzle.json"
+            ],
+            "vendor": "Numakers"
+        }
+    ],
+    "version": "02.05.00.56"
+}

@@ -7,11 +7,9 @@
             "filament_path": [
                 "Numakers/Numakers PLA + @Bambu Lab A1 0.4 nozzle.json",
                 "Numakers/Numakers PLA + @Bambu Lab A1 mini 0.4 nozzle.json",
-                "Numakers/Numakers PLA + @Bambu Lab X1 Carbon 0.4 nozzle.json",
+                "Numakers/Numakers PLA + @Bambu Lab H2C 0.4 nozzle.json",
                 "Numakers/Numakers PLA + @Bambu Lab P1P 0.4 nozzle.json",
-                "Numakers/Numakers PLA + @Bambu Lab H2S 0.4 nozzle.json",
-                "Numakers/Numakers PLA + @Bambu Lab H2D 0.4 nozzle.json",
-                "Numakers/Numakers PLA + @Bambu Lab H2C 0.4 nozzle.json"
+                "Numakers/Numakers PLA + @Bambu Lab X1 Carbon 0.4 nozzle.json"
             ],
             "vendor": "Numakers"
         }
