@@ -1,0 +1,20 @@
+{
+    "bundle_id": "2979884502_Numakers PLA +_1771909769",
+    "bundle_type": "filament config bundle",
+    "filament_name": "Numakers PLA +",
+    "filament_vendor": [
+        {
+            "filament_path": [
+                "Numakers/Numakers PLA + @Bambu Lab A1 0.4 nozzle.json",
+                "Numakers/Numakers PLA + @Bambu Lab A1 mini 0.4 nozzle.json",
+                "Numakers/Numakers PLA + @Bambu Lab X1 Carbon 0.4 nozzle.json",
+                "Numakers/Numakers PLA + @Bambu Lab P1P 0.4 nozzle.json",
+                "Numakers/Numakers PLA + @Bambu Lab H2S 0.4 nozzle.json",
+                "Numakers/Numakers PLA + @Bambu Lab H2D 0.4 nozzle.json",
+                "Numakers/Numakers PLA + @Bambu Lab H2C 0.4 nozzle.json"
+            ],
+            "vendor": "Numakers"
+        }
+    ],
+    "version": "02.05.00.56"
+}
