@@ -20,6 +20,23 @@ const bundleDirs = fs.readdirSync(rootDir)
 
 const profiles = [];
 
+// Helper function to convert folder name to friendly filament type
+function getFriendlyFilamentType(folderName) {
+  // Remove "Numakers" prefix
+  const type = folderName.replace(/^Numakers/, '');
+  
+  // Handle special cases
+  if (type === 'PETGHS') return 'PETG HS';
+  if (type === 'PLACF') return 'PLA-CF';
+  if (type === 'PLAMatte') return 'PLA Matte';
+  if (type === 'PLAWood') return 'PLA Wood';
+  if (type === 'PLASilk') return 'PLA Silk';
+  if (type === 'PLA+') return 'PLA+';
+  
+  // Default: return as-is (ABS, ASA, etc.)
+  return type;
+}
+
 bundleDirs.forEach(dir => {
   const numakersDir = path.join(rootDir, dir, 'Numakers');
   
@@ -35,21 +52,24 @@ bundleDirs.forEach(dir => {
         
         // Extract metadata from filename
         // Format: "Numakers [Type] @[Printer] [Nozzle].json"
-        const match = file.match(/Numakers\s+(.+?)\s+@(.+?)\s+(\d+\.\d+)\s+nozzle\.json/i);
+        const match = file.match(/Numakers\s+.+?\s+@(.+?)\s+(\d+\.\d+)\s+nozzle\.json/i);
         
         if (match) {
-          const [, filamentType, printer, nozzleSize] = match;
+          const [, printer, nozzleSize] = match;
+          
+          // Derive filament type from folder name for consistent display
+          const filamentType = getFriendlyFilamentType(dir);
           
           profiles.push({
             id: `${dir}-${file.replace(/\s+/g, '-').replace('.json', '')}`,
             fileName: file,
             filePath: `${dir}/Numakers/${file}`,
-            filamentType: filamentType.trim(),
-            filamentName: profileData.name || filamentType.trim(),
+            filamentType: filamentType,
+            filamentName: profileData.name || filamentType,
             printer: printer.trim(),
             nozzleSize: `${nozzleSize}mm`,
             vendor: profileData.filament_vendor?.[0] || 'Numakers',
-            type: profileData.filament_type?.[0] || filamentType.split(' ')[0],
+            type: profileData.filament_type?.[0] || filamentType,
             folder: dir
           });
         }
