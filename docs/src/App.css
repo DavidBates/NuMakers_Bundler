@@ -1,14 +1,15 @@
 :root {
-  --bg: #070c16;
-  --bg-soft: #0f1728;
-  --panel: rgba(20, 28, 45, 0.75);
-  --panel-strong: #101a2d;
-  --border: rgba(102, 223, 255, 0.25);
-  --border-strong: rgba(102, 223, 255, 0.45);
-  --text: #f5f8ff;
-  --text-soft: #a7b6d1;
-  --accent: #28d7ff;
-  --accent-2: #38f0c2;
+  --bg: #0a0a0a;
+  --bg-soft: #1a1a1a;
+  --panel: rgba(26, 26, 26, 0.80);
+  --panel-strong: #1f1f1f;
+  --border: rgba(255, 107, 53, 0.20);
+  --border-strong: rgba(255, 107, 53, 0.40);
+  --text: #ffffff;
+  --text-soft: #b0b0b0;
+  --accent: #FF6B35;
+  --accent-hover: #ff8c5e;
+  --accent-2: #ffa366;
   --danger: #64748b;
 }
 
@@ -18,9 +19,9 @@ body {
   margin: 0;
   color: var(--text);
   background:
-    radial-gradient(circle at 12% 18%, rgba(32, 107, 156, 0.35), transparent 35%),
-    radial-gradient(circle at 90% 10%, rgba(43, 197, 186, 0.18), transparent 28%),
-    linear-gradient(180deg, #071020 0%, #060a13 100%);
+    radial-gradient(circle at 15% 20%, rgba(255, 107, 53, 0.08), transparent 40%),
+    radial-gradient(circle at 85% 15%, rgba(255, 140, 94, 0.06), transparent 35%),
+    linear-gradient(180deg, #0f0f0f 0%, #0a0a0a 100%);
   line-height: 1.5;
 }
 

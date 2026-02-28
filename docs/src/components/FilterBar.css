@@ -45,20 +45,27 @@
   padding: 0.7rem 0.75rem;
   border-radius: 10px;
   border: 1px solid var(--border);
-  background: #060b14;
+  background: #141414;
   color: var(--text);
 }
 
 .btn-clear-filters {
   padding: 0.7rem 1rem;
   border-radius: 10px;
-  background: #203049;
+  background: rgba(255, 107, 53, 0.15);
   border: 1px solid var(--border);
   color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-clear-filters:hover {
+  background: rgba(255, 107, 53, 0.25);
+  border-color: var(--border-strong);
 }
 
 .instructions-row {
-  background: rgba(17, 28, 43, 0.82);
+  background: rgba(26, 26, 26, 0.70);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 1rem;

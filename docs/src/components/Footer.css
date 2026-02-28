@@ -30,7 +30,13 @@
   height: 38px;
   border-radius: 50%;
   border: 1px solid var(--border);
-  background: #0a1221;
+  background: #1a1a1a;
+  transition: all 0.2s;
+}
+
+.social-links a:hover {
+  background: rgba(255, 107, 53, 0.15);
+  border-color: var(--border-strong);
 }
 
 .footer-bottom {

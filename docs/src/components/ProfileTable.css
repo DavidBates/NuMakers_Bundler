@@ -18,10 +18,18 @@
 
 .btn-primary {
   border: 1px solid var(--border-strong);
-  background: linear-gradient(90deg, rgba(39, 130, 168, 0.45), rgba(19, 98, 128, 0.45));
-  color: var(--text);
+  background: linear-gradient(135deg, var(--accent), rgba(255, 107, 53, 0.8));
+  color: white;
   border-radius: 10px;
   padding: 0.6rem 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--accent-hover), var(--accent));
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
 }
 
 .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -37,25 +45,35 @@
 .profile-table thead th {
   text-align: left;
   padding: 0.75rem;
-  background: #040912;
+  background: #0f0f0f;
   border-bottom: 1px solid var(--border);
+  color: var(--text-soft);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
 }
 
 .profile-table td {
   padding: 0.72rem;
-  border-bottom: 1px solid rgba(107, 133, 175, 0.2);
+  border-bottom: 1px solid rgba(255, 107, 53, 0.1);
 }
 
 .group-row {
-  background: rgba(12, 18, 31, 0.95);
-  color: #dce6fb;
+  background: rgba(20, 20, 20, 0.95);
+  color: var(--text);
   cursor: pointer;
+  transition: background 0.2s;
+}
+
+.group-row:hover {
+  background: rgba(255, 107, 53, 0.08);
 }
 
 .group-action { color: var(--text-soft); }
 .expander { color: var(--accent); font-weight: 700; }
 
-.selected { background: rgba(55, 136, 179, 0.25); }
+.selected { background: rgba(255, 107, 53, 0.15); }
 
 .checkbox-col {
   width: 45px;
@@ -64,11 +82,18 @@
 
 .btn-json {
   border: 1px solid var(--border-strong);
-  background: rgba(40, 162, 190, 0.2);
+  background: rgba(255, 107, 53, 0.15);
   border-radius: 8px;
   color: var(--accent);
   padding: 0.3rem 0.7rem;
   font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-json:hover {
+  background: rgba(255, 107, 53, 0.25);
+  box-shadow: 0 2px 8px rgba(255, 107, 53, 0.2);
 }
 
 .no-results {

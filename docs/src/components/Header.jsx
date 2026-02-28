@@ -7,7 +7,7 @@ function Header({ totalProfiles, filteredCount, selectedCount, showHelp, onToggl
         <div className="brand-row">
           <div className="brand-block">
             <img
-              src="/numaker-logo.webp"
+              src="./numaker-logo.webp"
               alt="Numakers Logo"
               className="logo"
             />
