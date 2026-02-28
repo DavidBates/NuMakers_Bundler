@@ -9,12 +9,12 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # Change to the script directory
 cd "$SCRIPT_DIR"
 
-# Iterate through each directory in the current folder
-for dir in */; do
+# Iterate through each directory starting with "Numakers"
+for dir in Numakers*/; do
     # Remove trailing slash from directory name
     dir_name="${dir%/}"
     
-    # Skip if not a directory
+    # Skip if not a directory or doesn't exist
     if [ ! -d "$dir_name" ]; then
         continue
     fi
@@ -34,5 +34,18 @@ for dir in */; do
         echo "✗ Failed to create: $output_file"
     fi
 done
+
+# Copy JSON profile files to docs/public for the web app
+if [ -d "docs/public" ]; then
+    echo "Copying profile files to docs/public..."
+    for dir in Numakers*/; do
+        dir_name="${dir%/}"
+        if [ -d "$dir_name/Numakers" ]; then
+            mkdir -p "docs/public/$dir_name/Numakers"
+            cp "$dir_name/Numakers/"*.json "docs/public/$dir_name/Numakers/" 2>/dev/null
+        fi
+    done
+    echo "✓ Profile files copied to docs/public"
+fi
 
 echo "Bundle creation complete!"

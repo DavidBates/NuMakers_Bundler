@@ -1,0 +1,90 @@
+.bundle-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.bundle-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+  border-color: var(--primary-color);
+}
+
+.bundle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.bundle-header h3 {
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  margin: 0;
+  flex: 1;
+}
+
+.profile-count {
+  background: var(--surface);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.bundle-details {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.bundle-details .version {
+  margin: 0;
+}
+
+.download-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: auto;
+}
+
+.download-button:hover {
+  background: var(--primary-hover);
+}
+
+.download-button:active {
+  transform: scale(0.98);
+}
+
+.download-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 768px) {
+  .bundle-card {
+    padding: 1.25rem;
+  }
+  
+  .bundle-header h3 {
+    font-size: 1.125rem;
+  }
+}
