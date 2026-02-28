@@ -8,21 +8,22 @@ import Footer from './components/Footer'
 
 function App() {
   const [selectedProfiles, setSelectedProfiles] = useState([])
+  const [showHelp, setShowHelp] = useState(false)
   const [filters, setFilters] = useState({
+    slicer: 'Bambu Studio',
     filamentType: '',
     printer: '',
     nozzleSize: '',
     search: ''
   })
 
-  // Extract unique filter options
   const filterOptions = useMemo(() => ({
+    slicers: ['Bambu Studio'],
     filamentTypes: [...new Set(profilesData.map(p => p.filamentType))].sort(),
     printers: [...new Set(profilesData.map(p => p.printer))].sort(),
     nozzleSizes: [...new Set(profilesData.map(p => p.nozzleSize))].sort()
   }), [])
 
-  // Apply filters
   const filteredProfiles = useMemo(() => {
     return profilesData.filter(profile => {
       if (filters.filamentType && profile.filamentType !== filters.filamentType) return false
@@ -45,28 +46,32 @@ function App() {
   }
 
   const handleClearFilters = () => {
-    setFilters({
+    setFilters(prev => ({
+      ...prev,
       filamentType: '',
       printer: '',
       nozzleSize: '',
       search: ''
-    })
+    }))
   }
 
   return (
     <div className="app">
-      <Header 
+      <Header
         totalProfiles={profilesData.length}
         filteredCount={filteredProfiles.length}
         selectedCount={selectedProfiles.length}
+        showHelp={showHelp}
+        onToggleHelp={() => setShowHelp((prev) => !prev)}
       />
-      
+
       <main className="main-content">
         <FilterBar
           filters={filters}
           filterOptions={filterOptions}
           onFilterChange={handleFilterChange}
           onClearFilters={handleClearFilters}
+          showHelp={showHelp}
         />
 
         <ProfileTable

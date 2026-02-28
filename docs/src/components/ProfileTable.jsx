@@ -1,28 +1,47 @@
-import { useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import JSZip from 'jszip'
 import { saveAs } from 'file-saver'
 import './ProfileTable.css'
 
 function ProfileTable({ profiles, selectedProfiles, onSelectionChange }) {
-  const [sortConfig, setSortConfig] = useState({ key: 'filamentType', direction: 'asc' })
+  const [expandedGroups, setExpandedGroups] = useState(new Set())
 
-  const handleSort = (key) => {
-    setSortConfig(prev => ({
-      key,
-      direction: prev.key === key && prev.direction === 'asc' ? 'desc' : 'asc'
-    }))
+  const groupedProfiles = useMemo(() => {
+    const groups = profiles.reduce((acc, profile) => {
+      const group = acc.get(profile.filamentType) || []
+      group.push(profile)
+      acc.set(profile.filamentType, group)
+      return acc
+    }, new Map())
+
+    return Array.from(groups.entries())
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([material, items]) => ({
+        material,
+        items: [...items].sort((a, b) => a.printer.localeCompare(b.printer))
+      }))
+  }, [profiles])
+
+  const visibleProfiles = useMemo(
+    () => groupedProfiles.flatMap(group => (expandedGroups.has(group.material) ? group.items : [])),
+    [groupedProfiles, expandedGroups]
+  )
+
+  const toggleGroup = (material) => {
+    setExpandedGroups(prev => {
+      const next = new Set(prev)
+      if (next.has(material)) {
+        next.delete(material)
+      } else {
+        next.add(material)
+      }
+      return next
+    })
   }
-
-  const sortedProfiles = [...profiles].sort((a, b) => {
-    const aVal = a[sortConfig.key]
-    const bVal = b[sortConfig.key]
-    const direction = sortConfig.direction === 'asc' ? 1 : -1
-    return aVal.localeCompare(bVal) * direction
-  })
 
   const handleSelectAll = (e) => {
     if (e.target.checked) {
-      onSelectionChange(profiles.map(p => p.id))
+      onSelectionChange(visibleProfiles.map(p => p.id))
     } else {
       onSelectionChange([])
     }
@@ -68,25 +87,17 @@ function ProfileTable({ profiles, selectedProfiles, onSelectionChange }) {
     }
   }
 
-  const allSelected = profiles.length > 0 && selectedProfiles.length === profiles.length
+  const allVisibleSelected = visibleProfiles.length > 0 && visibleProfiles.every(profile => selectedProfiles.includes(profile.id))
 
   return (
     <div className="profile-table-container">
-      {selectedProfiles.length > 0 && (
-        <div className="bulk-actions">
-          <button className="btn-primary" onClick={downloadSelected}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="7 10 12 15 17 10" />
-              <line x1="12" y1="15" x2="12" y2="3" />
-            </svg>
-            Download Selected ({selectedProfiles.length})
-          </button>
-          <button className="btn-secondary" onClick={() => onSelectionChange([])}>
-            Clear Selection
-          </button>
-        </div>
-      )}
+      <div className="table-header">
+        <h3>Presets</h3>
+        <p>{profiles.length} presets in {groupedProfiles.length} materials.</p>
+        <button className="btn-primary" onClick={downloadSelected} disabled={selectedProfiles.length === 0}>
+          Download Selected
+        </button>
+      </div>
 
       <div className="table-wrapper">
         <table className="profile-table">
@@ -95,68 +106,59 @@ function ProfileTable({ profiles, selectedProfiles, onSelectionChange }) {
               <th className="checkbox-col">
                 <input
                   type="checkbox"
-                  checked={allSelected}
+                  checked={allVisibleSelected}
                   onChange={handleSelectAll}
-                  aria-label="Select all profiles"
+                  aria-label="Select expanded profiles"
                 />
               </th>
-              <th onClick={() => handleSort('filamentType')} className="sortable">
-                Filament Type
-                {sortConfig.key === 'filamentType' && (
-                  <span className="sort-indicator">
-                    {sortConfig.direction === 'asc' ? '↑' : '↓'}
-                  </span>
-                )}
-              </th>
-              <th onClick={() => handleSort('printer')} className="sortable">
-                Printer
-                {sortConfig.key === 'printer' && (
-                  <span className="sort-indicator">
-                    {sortConfig.direction === 'asc' ? '↑' : '↓'}
-                  </span>
-                )}
-              </th>
-              <th onClick={() => handleSort('nozzleSize')} className="sortable">
-                Nozzle Size
-                {sortConfig.key === 'nozzleSize' && (
-                  <span className="sort-indicator">
-                    {sortConfig.direction === 'asc' ? '↑' : '↓'}
-                  </span>
-                )}
-              </th>
-              <th className="actions-col">Download</th>
+              <th>Material</th>
+              <th>Filament Preset</th>
+              <th>Printer</th>
+              <th>Download Action</th>
             </tr>
           </thead>
           <tbody>
-            {sortedProfiles.map(profile => (
-              <tr key={profile.id} className={selectedProfiles.includes(profile.id) ? 'selected' : ''}>
-                <td className="checkbox-col">
-                  <input
-                    type="checkbox"
-                    checked={selectedProfiles.includes(profile.id)}
-                    onChange={() => handleSelectOne(profile.id)}
-                    aria-label={`Select ${profile.fileName}`}
-                  />
-                </td>
-                <td className="filament-type">{profile.filamentType}</td>
-                <td className="printer">{profile.printer}</td>
-                <td className="nozzle-size">{profile.nozzleSize}</td>
-                <td className="actions-col">
-                  <button
-                    className="btn-icon"
-                    onClick={() => downloadProfile(profile)}
-                    title="Download profile"
-                    aria-label={`Download ${profile.fileName}`}
-                  >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <polyline points="7 10 12 15 17 10" />
-                      <line x1="12" y1="15" x2="12" y2="3" />
-                    </svg>
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {groupedProfiles.map(group => {
+              const expanded = expandedGroups.has(group.material)
+              return (
+                <Fragment key={group.material}>
+                  <tr className="group-row" onClick={() => toggleGroup(group.material)}>
+                    <td className="checkbox-col" />
+                    <td>
+                      <span className="expander">{expanded ? '▾' : '▸'}</span> {group.material}
+                    </td>
+                    <td>{group.items.length} presets</td>
+                    <td>-</td>
+                    <td className="group-action">Click to {expanded ? 'collapse' : 'expand'}</td>
+                  </tr>
+                  {expanded && group.items.map(profile => (
+                    <tr key={profile.id} className={selectedProfiles.includes(profile.id) ? 'selected' : ''}>
+                      <td className="checkbox-col">
+                        <input
+                          type="checkbox"
+                          checked={selectedProfiles.includes(profile.id)}
+                          onChange={() => handleSelectOne(profile.id)}
+                          aria-label={`Select ${profile.fileName}`}
+                        />
+                      </td>
+                      <td>{profile.filamentType}</td>
+                      <td>{profile.fileName.replace('.json', '')}</td>
+                      <td>{profile.printer} ({profile.nozzleSize})</td>
+                      <td>
+                        <button
+                          className="btn-json"
+                          onClick={() => downloadProfile(profile)}
+                          title="Download profile"
+                          aria-label={`Download ${profile.fileName}`}
+                        >
+                          JSON
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </Fragment>
+              )
+            })}
           </tbody>
         </table>
       </div>
